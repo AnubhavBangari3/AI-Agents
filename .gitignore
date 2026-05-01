@@ -72,3 +72,13 @@ htmlcov/
 # =========================
 # Uncomment if storing local model paths
 # models/
+
+# Virtual Environment (FULL ignore)
+env/
+env/*
+
+# Extra safety (in case you're inside env folder)
+Include/
+Lib/
+Scripts/
+pyvenv.cfg
