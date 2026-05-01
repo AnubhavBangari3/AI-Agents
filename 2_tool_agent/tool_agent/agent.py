@@ -3,24 +3,29 @@ from google.adk.models.lite_llm import LiteLlm
 
 
 def get_current_time(city: str) -> str:
-    return f"The current time in {city} is approx 10:00 AM (demo)."
+    """
+    Get current time for a city.
+    """
+    return f"The current time in {city} is 10:00 AM. This is a demo response."
 
 
 root_agent = Agent(
     name="current_time_agent",
-    model=LiteLlm(model="ollama_chat/llama3:latest"),
-    description="Time tool agent",
+    model=LiteLlm(model="ollama_chat/mistral:latest"),
+    description="A simple time tool agent using Ollama.",
     instruction="""
 You are a helpful assistant.
 
-IMPORTANT:
-- You have ONLY ONE tool: get_current_time
-- NEVER call any tool unless the user explicitly asks for current time
-- NEVER call tools like 'answer' or 'tool_agent'
+You have only one tool:
+get_current_time(city)
 
-Behavior:
-- If user asks for time → call get_current_time
-- Otherwise → just reply normally in text (DO NOT CALL ANY TOOL)
+Rules:
+- Call get_current_time only when the user asks for current time.
+- Do not call any other tool.
+- Do not call answer.
+- Do not call current_time_agent.
+- For normal questions, reply directly in plain text.
+- After using the tool once, stop and give the final answer.
 """,
     tools=[get_current_time],
 )
