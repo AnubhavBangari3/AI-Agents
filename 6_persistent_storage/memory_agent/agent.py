@@ -117,5 +117,5 @@ Rules:
 )
 
 
-# ✅ For main.py compatibility
+# For main.py compatibility
 memory_agent = root_agent
