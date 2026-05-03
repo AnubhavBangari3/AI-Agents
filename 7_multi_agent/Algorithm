@@ -1,0 +1,43 @@
+1. Choose one common local model
+   Ollama model = mistral:latest
+
+2. Create specialist agents
+   funny_nerd → handles nerd jokes
+   stock_analyst → handles stock prices
+   news_analyst → handles news
+
+3. Give each specialist its own tool
+   funny_nerd → get_nerd_joke
+   stock_analyst → get_stock_price
+   news_analyst → search_news
+
+4. Create manager agent
+   manager receives the user question first
+
+5. Manager classifies user intent
+   If question is about stock → stock_analyst
+   If question is about joke → funny_nerd
+   If question is about news → news_analyst
+   If question is about time → get_current_time
+
+6. Manager delegates work
+   stock_analyst and funny_nerd are added as sub_agents
+   news_analyst is added using AgentTool
+
+7. Specialist agent executes tool
+   Example:
+   User asks TSLA price
+   manager should route to stock_analyst
+   stock_analyst should call get_stock_price("TSLA")
+
+8. Tool returns structured data
+   Example:
+   {
+     "status": "success",
+     "ticker": "TSLA",
+     "price": 250,
+     "timestamp": "..."
+   }
+
+9. Agent formats final answer
+   The agent converts tool output into user-friendly text
